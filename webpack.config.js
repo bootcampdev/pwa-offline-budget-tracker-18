@@ -12,6 +12,7 @@ const config = {
     new WebpackPwaManifest({
       // the name of the generated manifest file
       filename: "manifest.json",
+      publicPath: "/dist",
 
       // we aren't using webpack to generate our html so we
       // set inject to false
@@ -30,8 +31,7 @@ const config = {
 
       icons: [
         {
-          src: path.resolve(
-            __dirname,
+          src: path.resolve(           
             "public/icons/icon-512x512.png"
             ),
           // the plugin will generate an image for each size

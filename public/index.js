@@ -1,25 +1,6 @@
 let transactions = [];
 let myChart;
-
-//
-// We request a database instance incase we are offline or go offline
-
-const request = window.indexedDB.open("budget-tracker", 1);
-
-//
-// Create an object store inside the onupgradeneeded method.
-
-request.onupgradeneeded = ({ target }) => {
-  const db = target.result;
-  const objectStore = db.createObjectStore("trans-rec");
-};
-
-//
-// On success console the result.
-
-request.onsuccess = event => {
-  console.log(request.result);
-};
+let db;
 
 
 fetch("/api/transaction")
@@ -29,6 +10,8 @@ fetch("/api/transaction")
   .then(data => {
     // save db data on global variable
     transactions = data;
+
+    console.log("transaction after fetch ", transactions);
 
     populateTotal();
     populateTable();
@@ -50,6 +33,7 @@ function populateTable() {
   tbody.innerHTML = "";
 
   transactions.forEach(transaction => {
+
     // create and populate a table row
     let tr = document.createElement("tr");
     tr.innerHTML = `
@@ -62,6 +46,7 @@ function populateTable() {
 }
 
 function populateChart() {
+
   // copy array and reverse it
   let reversed = transactions.slice().reverse();
   let sum = 0;
@@ -134,6 +119,7 @@ function sendTransaction(isAdding) {
   populateTotal();
 
   // also send to server
+
   fetch("/api/transaction", {
     method: "POST",
     body: JSON.stringify(transaction),
@@ -156,6 +142,11 @@ function sendTransaction(isAdding) {
       }
     })
     .catch(err => {
+
+      if(err) { 
+        console.log(err) 
+      }
+
       // fetch failed, so save in indexed db
       saveRecord(transaction);
 
@@ -164,6 +155,52 @@ function sendTransaction(isAdding) {
       amountEl.value = "";
     });
 }
+
+
+//
+// We request a database instance incase we are offline or go offline
+
+const request = window.indexedDB.open("BudgetTrackerDb", 1);
+
+//
+// Create an object store inside the onupgradeneeded method.
+
+request.onupgradeneeded = ({ target }) => {
+  const db = target.result;
+  const objectStore = db.createObjectStore("transaction", {keyPath: "id", autoIncrement: true});
+};
+
+//
+// On success console the result.
+
+request.onsuccess = event => {
+  console.log("idb rec create" ,request.result);
+  db = event.target.result;
+};
+
+const getBudgetTransactionStore = () => {
+
+  const transaction = db.transaction(["transaction"], "readwrite")
+  return transaction.objectStore("transaction")
+}
+
+
+function saveRecord(transRec) {
+
+  console.log("trans-rec",transRec)
+
+  const store = getBudgetTransactionStore();
+
+  // set the data data and add to indexdb store
+  //
+
+  store.add({
+    name: transRec.name,
+    value: transRec.value,
+    date: transRec.date
+  })
+ }
+
 
 document.querySelector("#add-btn").onclick = function () {
   sendTransaction(true);
