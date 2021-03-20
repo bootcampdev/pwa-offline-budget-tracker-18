@@ -1,7 +1,8 @@
 const FILES_TO_CACHE = [
   "/",
   "index.html",
-  "index.js",  // for prod include bundle.js
+ //"index.js",  // for prod include bundle.js
+  "dist/bundle.js",  // for prod include bundle.js
   "styles.css",
   "icons/icon-192x192.png",
   "icons/icon-512x512.png"
