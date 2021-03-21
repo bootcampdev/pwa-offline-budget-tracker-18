@@ -146,8 +146,9 @@ function sendTransaction(isAdding) {
       if(err) { 
         console.log(err) 
       }
-
+      //
       // fetch failed, so save in indexed db
+
       saveRecord(transaction);
 
       // clear form
@@ -191,8 +192,8 @@ function saveRecord(transRec) {
 
   const store = getBudgetTransactionStore();
 
-  // set the data data and add to indexdb store
   //
+  // set the data data and add to indexdb store
 
   store.add({
     name: transRec.name,
