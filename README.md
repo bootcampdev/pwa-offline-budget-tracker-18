@@ -27,14 +27,19 @@ When brought back online:
 
 * Technologies include
 
-  `service-worker.js to determine if the application is offline`
+  ```
+  service-worker.js to determine if the application is offline
 
-  `IndexDB if the application is offline transaction records are recorded here`
+  IndexDB if the application is offline transaction records are recorded here
 
-  `webpack.config.js define an offline environment that will resize and cache icons, set color theme and define a manifest file in the dist folder to bundle all the javascript files`
+  webpack.config.js define an offline environment that will resize and cache icons, set color theme and define a manifest file in the dist folder to bundle all the javascript files
+  ```
+
 
 * Demo
+
 ![demo](budget-tracker.gif)
+
 
 
 ## Local Development
