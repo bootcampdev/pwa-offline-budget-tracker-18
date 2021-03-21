@@ -23,7 +23,18 @@ When brought back online:
 
 ## Application and repository
 * Repository [Budget-Tracker](https://github.com/bootcampdev/pwa-offline-budget-tracker-18)
-* Application Mongo Atlas [Budget-Tracker](https://github.com/bootcampdev/pwa-offline-budget-tracker-18)
+* Application Deployment Mongo Atlas [Budget-Tracker](https://obscure-dawn-40022.herokuapp.com/)
+
+* Technologies include
+
+  `service-worker.js to determine if the application is offline`
+
+  `IndexDB if the application is offline transaction records are recorded here`
+
+  `webpack.config.js define an offline environment that will resize and cache icons, set color theme and define a manifest file in the dist folder to bundle all the javascript files`
+
+* Demo
+![demo](budget-tracker.gif)
 
 
 ## Local Development
@@ -32,4 +43,4 @@ $ npm install
 
 $ npm start
 
-Navigate to localhost:3000
+Local navigate to localhost:3000
