@@ -42,7 +42,8 @@ When brought back online:
 
   IndexDB if the application is offline transaction records are recorded here
 
-  webpack.config.js define an offline environment that will resize and cache icons, set color theme<br>and define a manifest file in the dist folder to bundle all the javascript files
+  webpack.config.js define an offline environment that will resize and cache icons, set color theme
+  and define a manifest file in the dist folder to bundle all the javascript files
   ```
 
 
